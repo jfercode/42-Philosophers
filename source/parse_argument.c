@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 13:52:16 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/10 11:19:23 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:54:42 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static bool	ft_is_valid_argument(const char *argv)
 static void	ft_initialice_table_with_parse_argv(long parsed_argv,
 			t_table *table, int idx)
 {
+	if (parsed_argv <= 0)
+		ft_error_exit("Invalid parameters given");
 	if (idx == 1)
 		table->philo_nbr = parsed_argv;
 	else if (idx == 2)

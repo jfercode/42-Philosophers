@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 10:55:24 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/10 11:15:09 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:39:15 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ bool	ft_isspace(const char c)
 		return (true);
 	return (false);
 }
+
 /**
  * @brief Checks if a string contains only numeric characters.
  * @param str A pointer to the null-terminated string to check.

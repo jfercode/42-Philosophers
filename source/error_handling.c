@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:47:23 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/10 11:19:42 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:34:46 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_error_exit(const char *error_msg)
  */
 void	ft_error_parsing(t_table *table)
 {
-	printf(RED"Error: Invalid argv\n"RST);
+	printf(RED"Error: Invalid parameters given\n"RST);
 	if (table->philos)
 		free(table->philos);
 	if (table->forks)

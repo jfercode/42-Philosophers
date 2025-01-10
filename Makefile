@@ -59,4 +59,4 @@ re:		fclean all
 		@echo "$(BLUE)PROJECT REBUILD.$(RESET)"		
 
 # Phony rules
-.PHONY:	all clean fclean re	
+.PHONY:	all clean fclean re
