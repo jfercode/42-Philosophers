@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:59:25 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/13 13:27:50 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:42:24 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_fork	*ft_create_forks(t_table *table)
 	while (i < table->philo_nbr)
 	{
 		forks[i].fork_id = i + 1;
+		forks[i].in_use = false;
 		pthread_mutex_init(&forks[i].mutex, NULL);
 		i++;
 	}
@@ -49,14 +50,17 @@ t_philo	*ft_create_philos(t_table *table)
 	while (i < table->philo_nbr)
 	{
 		philos[i].id = i + 1;
-		philos[i].full = false;
 		philos[i].last_meal_time = 0;
+		philos[i].full = false;
+		if (table->forks)
+		{
+			philos[i].left_fork = &table->forks[i];
+			if (i == 0)
+				philos[i].right_fork = &table->forks[table->philo_nbr - 1];
+			else
+				philos[i].right_fork = &table->forks[i + 1];
+		}
 		philos[i].table = table;
-		philos[i].left_fork = &table->forks[i];
-		if (i == 0)
-			philos[i].right_fork = &table->forks[table->philo_nbr - 1];
-		else
-			philos[i].right_fork = &table->forks[i + 1];
 		i++;  
 	}
 	return (philos);

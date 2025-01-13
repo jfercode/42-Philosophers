@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 13:52:16 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/13 12:29:45 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:01:54 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,5 @@ void	ft_parse_argument(int argc, char **argv, t_table *table)
 			ft_initialice_table_with_parse_argv(ft_atol(argv[i]), table, i);
 		i++;
 	}
+	free (parse_argv);
 }
