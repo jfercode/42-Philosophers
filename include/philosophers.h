@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:30:33 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/10 10:59:24 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:28:29 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ struct s_table
 
 void	ft_error_parsing(t_table *table);
 void	ft_error_exit(const char *error_msg);
+void	ft_debug_fork(t_fork *fork);
+void	ft_debug_philo(t_philo *philo);
 void	ft_debug_table(t_table *table_to_debug);
 void	ft_parse_argument(int argc, char **argv, t_table *table);
 
@@ -68,5 +70,8 @@ long	ft_atol(const char *nptr);
 
 bool	ft_isspace(const char c);
 bool	ft_isdigit(const char c);
+
+t_fork	*ft_create_forks(t_table *table);
+t_philo	*ft_create_philos(t_table *table);
 
 #endif	/* PHILOSOPHERS_H */
