@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 14:40:10 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/13 14:59:43 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:58:36 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ void	ft_debug_table(t_table *table)
 	int	i;
 
 	i = 0;
-	printf(GREEN"\nDebug: philo_nbr: %ld\n", table->philo_nbr);
-	printf(GREEN"Debug: time_to_die: %ld\n", table->time_to_die);
-	printf(GREEN"Debug: time_to_eat: %ld\n", table->time_to_eat);
-	printf(GREEN"Debug: time_to_sleep: %ld\n", table->time_to_sleep);
-	printf(GREEN"Debug: number_of_times_each_philo_must_eat: %ld\n\n"RST,
+	printf(GREEN"\nDebug: philo_nbr:"BLUE" %ld\n"RST, table->philo_nbr);
+	printf(GREEN"Debug: time_to_die: "BLUE"%ld\n"RST, table->time_to_die);
+	printf(GREEN"Debug: time_to_eat: "BLUE"%ld\n"RST, table->time_to_eat);
+	printf(GREEN"Debug: time_to_sleep: "BLUE"%ld\n"RST, table->time_to_sleep);
+	printf(GREEN"Debug: number_of_times_each_philo_must_eat: "BLUE"%ld\n\n"RST,
 		table->number_of_times_each_philo_must_eat);
+	printf(GREEN"Debug: start_simulation: "BLUE"%ld\n"RST,
+		table->start_simulator.tv_usec);
 	while (i < table->philo_nbr)
 	{
 		printf("\n/-----------------/\n");
@@ -34,7 +36,6 @@ void	ft_debug_table(t_table *table)
 		ft_debug_philo(&table->philos[i]);
 		i++;
 	}
-	
 }
 
 /// @brief Prints debugging information for the fork
@@ -73,9 +74,11 @@ void	ft_debug_philo(t_philo *philo)
 		printf(GREEN"Debug: Is Full: "RED"false\n"RST);
 	printf(GREEN"Debug: Last Meal Time:"RST" %ld\n", philo->last_meal_time);
 	if (philo->left_fork)
-		printf(GREEN"Debug: Left Fork id:"RST" %d \n", philo->left_fork->fork_id);
+		printf(GREEN"Debug: Left Fork id:"RST" %d \n",
+			philo->left_fork->fork_id);
 	if (philo->right_fork->fork_id)
-		printf(GREEN"Debug: Right Fork id:"RST" %d\n", philo->right_fork->fork_id);
+		printf(GREEN"Debug: Right Fork id:"RST" %d\n",
+			philo->right_fork->fork_id);
 	printf(GREEN"Debug: Thread ID:"RST" %lu\n", philo->thread);
 	if (philo->table)
 		printf(GREEN"Debug: Has link to table\n"RST);
