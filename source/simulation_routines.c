@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 11:34:54 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/14 12:45:45 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:26:24 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /// @brief philosopher take left and right fork to eat
 /// @param philo the philosopher  
-void	ft_take_forks(t_philo *philo) // TO DO obtener el timestamp;
+void	ft_take_forks(t_philo *philo)
 {
 	struct timeval	current_time;
 
@@ -23,6 +23,10 @@ void	ft_take_forks(t_philo *philo) // TO DO obtener el timestamp;
 		current_time.tv_usec - philo->table->start_simulator.tv_usec,
 		philo->id);
 	pthread_mutex_lock(&philo->left_fork->mutex);
+	gettimeofday(&current_time, NULL);
+	printf("%ld %d has taken a fork\n",
+		current_time.tv_usec - philo->table->start_simulator.tv_usec,
+		philo->id);
 	pthread_mutex_lock(&philo->right_fork->mutex);
 }
 
@@ -46,7 +50,7 @@ void	ft_philo_eats(t_philo *philo)
 		philo->id);
 	philo->last_meal_time = current_time.tv_usec;
 	philo->meals_eaten++;
-	usleep(philo->table->time_to_eat * 1000);
+	usleep(philo->table->time_to_eat);
 }
 
 /// @brief philosopher action to sleep
@@ -73,8 +77,8 @@ void	ft_philo_thinks(t_philo *philo)
 	gettimeofday(&current_time, NULL);
 	time_until_starvation = philo->table->time_to_die
 		- (current_time.tv_usec - philo->last_meal_time);
-	// if (time_until_starvation <= 0)
-	// 	// TO DO: Matar filosofo aqui
+	if (time_until_starvation <= 0)
+		philo->table->end_simulator = true;
 	time_to_think = time_until_starvation / 2;
 	printf("%ld %d is thinking\n",
 		current_time.tv_usec - philo->table->start_simulator.tv_usec,
