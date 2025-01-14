@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:05:02 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/14 14:26:26 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:37:50 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,15 @@ void	*ft_philo_routine(void *arg)
 	while (!philo->table->end_simulator)
 	{
 		ft_take_forks(philo);
-		ft_philo_eats(philo);
+		while (1)
+		{
+			if (philo->left_fork->in_use == false
+				&& philo->right_fork->in_use == false)
+			{
+				ft_philo_eats(philo);
+				break ;
+			}
+		}
 		ft_put_down_forks(philo);
 		ft_philo_sleeps(philo);
 		ft_philo_thinks(philo);

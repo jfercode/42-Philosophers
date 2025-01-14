@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 11:34:54 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/14 14:26:24 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:55:32 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,46 @@ void	ft_take_forks(t_philo *philo)
 {
 	struct timeval	current_time;
 
-	gettimeofday(&current_time, NULL);
-	printf("%ld %d has taken a fork\n",
-		current_time.tv_usec - philo->table->start_simulator.tv_usec,
-		philo->id);
-	pthread_mutex_lock(&philo->left_fork->mutex);
-	gettimeofday(&current_time, NULL);
-	printf("%ld %d has taken a fork\n",
-		current_time.tv_usec - philo->table->start_simulator.tv_usec,
-		philo->id);
-	pthread_mutex_lock(&philo->right_fork->mutex);
+	if (pthread_mutex_lock(&philo->left_fork->mutex))
+	{
+		philo->left_fork->in_use = true;
+		gettimeofday(&current_time, NULL);
+		printf("%ld %d has taken a fork\n",
+			current_time.tv_usec - philo->table->start_simulator.tv_usec,
+			philo->id);
+	}
+	if (pthread_mutex_lock(&philo->right_fork->mutex))
+	{
+		philo->right_fork->in_use = true;
+		gettimeofday(&current_time, NULL);
+		printf("%ld %d has taken a fork\n",
+			current_time.tv_usec - philo->table->start_simulator.tv_usec,
+			philo->id);
+	}
 }
 
 /// @brief philosopher put down left and right fork after eat
 /// @param philo the philosopher
 void	ft_put_down_forks(t_philo *philo)
 {
-	pthread_mutex_unlock(&philo->left_fork->mutex);
-	pthread_mutex_unlock(&philo->right_fork->mutex);
+	struct timeval	current_time;
+
+	if (pthread_mutex_unlock(&philo->left_fork->mutex))
+	{
+		philo->left_fork->in_use = false;
+		gettimeofday(&current_time, NULL);
+		printf("%ld %d put down a fork\n",
+			current_time.tv_usec - philo->table->start_simulator.tv_usec,
+			philo->id);
+	}
+	if (pthread_mutex_unlock(&philo->right_fork->mutex))
+	{
+		philo->right_fork->in_use = false;
+		gettimeofday(&current_time, NULL);
+		printf("%ld %d put down a fork\n",
+			current_time.tv_usec - philo->table->start_simulator.tv_usec,
+			philo->id);
+	}
 }
 
 /// @brief philosopher action to eat
@@ -50,7 +72,7 @@ void	ft_philo_eats(t_philo *philo)
 		philo->id);
 	philo->last_meal_time = current_time.tv_usec;
 	philo->meals_eaten++;
-	usleep(philo->table->time_to_eat);
+	usleep(philo->table->time_to_eat * 1000);
 }
 
 /// @brief philosopher action to sleep
