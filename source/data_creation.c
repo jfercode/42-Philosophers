@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:59:25 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/13 14:42:24 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/14 09:56:12 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,19 @@ t_philo	*ft_create_philos(t_table *table)
 	philos = malloc(sizeof(t_philo) * table->philo_nbr);
 	if (!philos)
 		ft_error_exit("Error: Failed to malloc for philo\n");
-	i = 0;
-	while (i < table->philo_nbr)
+	i = table->philo_nbr;
+	while (--i >= 0)
 	{
 		philos[i].id = i + 1;
 		philos[i].last_meal_time = 0;
+		philos[i].meals_eaten = 0;
 		philos[i].full = false;
 		if (table->forks)
 		{
 			philos[i].left_fork = &table->forks[i];
-			if (i == 0)
-				philos[i].right_fork = &table->forks[table->philo_nbr - 1];
-			else
-				philos[i].right_fork = &table->forks[i + 1];
+			philos[i].right_fork = &table->forks[(i + 1) % table->philo_nbr];
 		}
-		philos[i].table = table;
-		i++;  
+		philos[i].table = table; 
 	}
 	return (philos);
 }

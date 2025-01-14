@@ -6,23 +6,41 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:35:09 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/13 15:38:31 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:19:49 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-static void	ft_data_initialization(int argc, char **argv, t_table *table)
+/// @brief Initialize the data for running philosophers
+/// @param argc argument count
+/// @param argv the arguments array
+/// @param table the table with information to store data
+static void	ft_data_initialization(char **argv, t_table *table)
 {
 	t_philo *philos;
 	t_fork	*forks;
 
-	ft_parse_argument(argc, argv, table);
+	table->philos = NULL;
+	table->forks = NULL;
+	ft_parse_argument(argv, table);
 	forks = ft_create_forks(table);
 	table->forks = forks;
 	philos = ft_create_philos(table);
 	table->philos = philos;
 }
+
+// static void	ft_philo_threads_initialization(t_table *table)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < table->philo_nbr)
+// 	{
+// 		// TO DO create all threads in order
+// 	}
+		
+// }
 
 int	main(int argc, char **argv)
 {
@@ -38,7 +56,7 @@ int	main(int argc, char **argv)
 		table = malloc(sizeof(t_table));
 		if (!table)
 			ft_error_exit("Error: failed to malloc for table\n");
-		ft_data_initialization(argc, argv, table);
+		ft_data_initialization(argv, table);
 		// ft_debug_table(table);
 		ft_clean_data(table);
 	}

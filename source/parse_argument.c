@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 13:52:16 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/13 15:01:54 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:19:10 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static bool	ft_is_valid_argument(const char *argv)
 static void	ft_initialice_table_with_parse_argv(long parsed_argv,
 			t_table *table, int idx)
 {
-	if (parsed_argv <= 0)
-		ft_error_exit("Invalid parameters given");
 	if (idx == 1)
 		table->philo_nbr = parsed_argv;
 	else if (idx == 2)
@@ -58,15 +56,11 @@ static void	ft_initialice_table_with_parse_argv(long parsed_argv,
  * @param argv The array of arguments passed to the program.
  * @param table A pointer to the table structure to be initialized.
  */
-void	ft_parse_argument(int argc, char **argv, t_table *table)
+void	ft_parse_argument(char **argv, t_table *table)
 {
 	int		i;
-	long	*parse_argv;
 
 	i = 1;
-	parse_argv = malloc(sizeof(long) * argc);
-	if (!parse_argv)
-		ft_error_exit("Error: Failed to malloc for parse_argv\n");
 	while (argv[i])
 	{
 		if (!ft_is_valid_argument(argv[i]))
@@ -75,5 +69,7 @@ void	ft_parse_argument(int argc, char **argv, t_table *table)
 			ft_initialice_table_with_parse_argv(ft_atol(argv[i]), table, i);
 		i++;
 	}
-	free (parse_argv);
+	if (table->philo_nbr < 2 || table->time_to_eat <= 0 || table->time_to_eat <= 0
+		|| table->time_to_sleep <= 0 || table->philo_nbr >= 250)
+		ft_error_parsing(table);
 }
