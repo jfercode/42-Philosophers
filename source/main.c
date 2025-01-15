@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:35:09 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/15 14:09:16 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:06:21 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ static void	ft_data_initialization(char **argv, t_table *table)
 	table->forks = forks;
 	philos = ft_create_philos(table);
 	table->philos = philos;
+	table->all_threads_ready = false;
 }
-
-
 
 int	main(int argc, char **argv)
 {
@@ -47,8 +46,7 @@ int	main(int argc, char **argv)
 		if (!table)
 			ft_error_exit("Error: failed to malloc for table\n");
 		ft_data_initialization(argv, table);
-		ft_debug_table(table);
-		// ft_start_simulation(table);
+		ft_start_simulation(table);
 		ft_clean_data(table);
 	}
 	return (0);

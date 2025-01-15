@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:59:25 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/15 14:09:34 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:37:27 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_philo	*ft_create_philos(t_table *table)
 		philos[i].meals_eaten = 0;
 		philos[i].full = false;
 		philos[i].table = table;
+		pthread_mutex_init(&philos[i].mutex, NULL);
 		ft_assign_forks_to_philo(&philos[i], i);
 		i++;
 	}
