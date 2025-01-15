@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 11:34:54 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/14 15:55:32 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:54:27 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	ft_take_forks(t_philo *philo)
 {
 	struct timeval	current_time;
 
-	if (pthread_mutex_lock(&philo->left_fork->mutex))
+	if (pthread_mutex_lock(&philo->first_fork->mutex))
 	{
-		philo->left_fork->in_use = true;
+		philo->first_fork->in_use = true;
 		gettimeofday(&current_time, NULL);
 		printf("%ld %d has taken a fork\n",
 			current_time.tv_usec - philo->table->start_simulator.tv_usec,
 			philo->id);
 	}
-	if (pthread_mutex_lock(&philo->right_fork->mutex))
+	if (pthread_mutex_lock(&philo->second_fork->mutex))
 	{
-		philo->right_fork->in_use = true;
+		philo->second_fork->in_use = true;
 		gettimeofday(&current_time, NULL);
 		printf("%ld %d has taken a fork\n",
 			current_time.tv_usec - philo->table->start_simulator.tv_usec,
@@ -42,17 +42,17 @@ void	ft_put_down_forks(t_philo *philo)
 {
 	struct timeval	current_time;
 
-	if (pthread_mutex_unlock(&philo->left_fork->mutex))
+	if (pthread_mutex_unlock(&philo->first_fork->mutex))
 	{
-		philo->left_fork->in_use = false;
+		philo->first_fork->in_use = false;
 		gettimeofday(&current_time, NULL);
 		printf("%ld %d put down a fork\n",
 			current_time.tv_usec - philo->table->start_simulator.tv_usec,
 			philo->id);
 	}
-	if (pthread_mutex_unlock(&philo->right_fork->mutex))
+	if (pthread_mutex_unlock(&philo->second_fork->mutex))
 	{
-		philo->right_fork->in_use = false;
+		philo->second_fork->in_use = false;
 		gettimeofday(&current_time, NULL);
 		printf("%ld %d put down a fork\n",
 			current_time.tv_usec - philo->table->start_simulator.tv_usec,

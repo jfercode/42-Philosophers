@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 14:40:10 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/14 11:58:36 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:23:33 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ void	ft_debug_philo(t_philo *philo)
 	else
 		printf(GREEN"Debug: Is Full: "RED"false\n"RST);
 	printf(GREEN"Debug: Last Meal Time:"RST" %ld\n", philo->last_meal_time);
-	if (philo->left_fork)
-		printf(GREEN"Debug: Left Fork id:"RST" %d \n",
-			philo->left_fork->fork_id);
-	if (philo->right_fork->fork_id)
-		printf(GREEN"Debug: Right Fork id:"RST" %d\n",
-			philo->right_fork->fork_id);
+	if (philo->first_fork)
+		printf(GREEN"Debug: First Fork id:"RST" %d \n",
+			philo->first_fork->fork_id);
+	if (philo->second_fork->fork_id)
+		printf(GREEN"Debug: Second Fork id:"RST" %d\n",
+			philo->second_fork->fork_id);
 	printf(GREEN"Debug: Thread ID:"RST" %lu\n", philo->thread);
 	if (philo->table)
 		printf(GREEN"Debug: Has link to table\n"RST);
