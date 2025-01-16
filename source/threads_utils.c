@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:16:52 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/15 15:08:01 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/16 11:24:13 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,20 @@ void ft_wait_all_threads(t_table *table)
 {
 	while (!table->all_threads_ready)
 		;
+}
+
+/// @brief Function to obtain the curren time since the start of simulation
+/// @param table table with references
+/// @return a long variable with elapsed_time in ms
+long	ft_obtain_current_time(t_table *table)
+{
+	long			elapsed_time_ms;
+	struct timeval 	current;
+
+	gettimeofday(&current, NULL);
+	elapsed_time_ms = labs(current.tv_sec
+		- table->start_simulator.tv_sec) * 1000;
+	elapsed_time_ms += labs(current.tv_usec
+		- table->start_simulator.tv_sec) / 1000;
+	return (elapsed_time_ms);
 }

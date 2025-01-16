@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:05:02 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/15 16:03:56 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/16 11:55:52 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	 ft_start_simulation(t_table *table)
 			ft_error_exit("Error: Failed to create thread\n");
 		i++;
 	}
-	gettimeofday(&table->start_simulator, NULL);
 	pthread_mutex_lock(&table->table_mutex);
 	pthread_mutex_unlock(&table->table_mutex);
+	gettimeofday(&table->start_simulator, NULL);
 	table->all_threads_ready = true;
 	i = 0;
 	while (i < table->philo_nbr)
-		pthread_join(table->philos[i].thread, NULL);
+	 	pthread_join(table->philos[i].thread, NULL);
 	
 }
 
@@ -46,20 +46,25 @@ void	*ft_philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	ft_wait_all_threads(philo->table);
-	while (!philo->full)
+	while (1)
 	{
 		ft_take_forks(philo);
 		ft_philo_eats(philo);
 		ft_put_down_forks(philo);
-		ft_philo_sleeps(philo);
-		ft_philo_thinks(philo);
+		if (!philo->full)
+		{
+			ft_philo_sleeps(philo);
+			ft_philo_thinks(philo);
+		}
+		else
+			break;
 	}
 	if (philo->full)
 	{
 		gettimeofday(&current_time, NULL);
 		printf(RST"%ld %d"GREEN" is full, eats %ld times\n"RST,
-		current_time.tv_usec - philo->table->start_simulator.tv_usec,
-		philo->id, philo->meals_eaten);
+		ft_obtain_current_time(philo->table),
+			philo->id, philo->meals_eaten);
 	}
 	return (NULL);
 }

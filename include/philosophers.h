@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:30:33 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/15 15:15:25 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/16 11:55:34 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_parse_argument(char **argv, t_table *table);
 void	*ft_philo_routine(void *arg);
 
 long	ft_atol(const char *nptr);
+long	ft_obtain_current_time(t_table *table);
 
 bool	ft_isspace(const char c);
 bool	ft_isdigit(const char c);
