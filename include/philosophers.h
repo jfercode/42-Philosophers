@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:30:33 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/16 11:55:34 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:17:00 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ struct s_table
 	bool			all_threads_ready;
 	t_fork			*forks;
 	t_philo			*philos;
+	pthread_t		monitor_thread;
 	pthread_mutex_t	table_mutex;
 	struct timeval	start_simulator;
 };
@@ -79,6 +80,7 @@ void	ft_debug_table(t_table *table_to_debug);
 void	ft_parse_argument(char **argv, t_table *table);
 
 void	*ft_philo_routine(void *arg);
+void	*ft_monitor_thread(void *arg);
 
 long	ft_atol(const char *nptr);
 long	ft_obtain_current_time(t_table *table);

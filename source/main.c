@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:35:09 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/15 16:06:21 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:21:34 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int argc, char **argv)
 		if (!table)
 			ft_error_exit("Error: failed to malloc for table\n");
 		ft_data_initialization(argv, table);
+		// ft_debug_table(table);
 		ft_start_simulation(table);
 		ft_clean_data(table);
 	}

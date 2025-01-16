@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:16:52 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/16 11:24:13 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:58:59 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ long	ft_obtain_current_time(t_table *table)
 	elapsed_time_ms = labs(current.tv_sec
 		- table->start_simulator.tv_sec) * 1000;
 	elapsed_time_ms += labs(current.tv_usec
-		- table->start_simulator.tv_sec) / 1000;
+		- table->start_simulator.tv_usec) / 1000;
 	return (elapsed_time_ms);
 }
