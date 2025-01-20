@@ -6,12 +6,15 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 13:52:16 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/14 11:39:39 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:00:48 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
+/// @brief Simple argument checker for is valid
+/// @param argv the argument to validate
+/// @return True if is valid // False if not 
 static bool	ft_is_valid_argument(const char *argv)
 {
 	int	i;
@@ -34,6 +37,11 @@ static bool	ft_is_valid_argument(const char *argv)
 	return (true);
 }
 
+/// @brief Given the argument parsed, assign the value to the 
+///	correct variable of the table
+/// @param parsed_argv the argument parsed
+/// @param table the table with refrences
+/// @param idx indx of the argument
 static void	ft_initialice_table_with_parse_argv(long parsed_argv,
 			t_table *table, int idx)
 {

@@ -6,12 +6,15 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:59:25 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/16 12:02:26 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:43:16 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
+/// @brief Function that assing correctly the forks for philos
+/// @param philo the philo to obtain his correct forks
+/// @param id the id of the philo
 static void	ft_assign_forks_to_philo(t_philo *philo, int id)
 {
 	int	philo_count;

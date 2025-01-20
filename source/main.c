@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:35:09 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/16 15:21:34 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:31:22 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ static void	ft_data_initialization(char **argv, t_table *table)
 	philos = ft_create_philos(table);
 	table->philos = philos;
 	table->all_threads_ready = false;
+	pthread_mutex_init(&table->table_mutex, NULL);
+	pthread_mutex_init(&table->print_mutex, NULL);
+	pthread_mutex_init(&table->start_mutex, NULL);
 }
 
 int	main(int argc, char **argv)
@@ -45,8 +48,8 @@ int	main(int argc, char **argv)
 		table = malloc(sizeof(t_table));
 		if (!table)
 			ft_error_exit("Error: failed to malloc for table\n");
+		memset(table, 0, sizeof(t_table));
 		ft_data_initialization(argv, table);
-		// ft_debug_table(table);
 		ft_start_simulation(table);
 		ft_clean_data(table);
 	}

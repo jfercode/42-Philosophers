@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:30:33 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/16 15:17:00 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:30:58 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_philo
 	int				id;
 	long			meals_eaten;
 	bool			full;
+	bool			is_eating;
 	long			last_meal_time;
 	t_fork			*first_fork;
 	t_fork			*second_fork;
@@ -61,6 +62,8 @@ struct s_table
 	t_philo			*philos;
 	pthread_t		monitor_thread;
 	pthread_mutex_t	table_mutex;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	start_mutex;
 	struct timeval	start_simulator;
 };
 
@@ -78,6 +81,10 @@ void	ft_start_simulation(t_table *table);
 void	ft_error_exit(const char *error_msg);
 void	ft_debug_table(t_table *table_to_debug);
 void	ft_parse_argument(char **argv, t_table *table);
+void	ft_safe_log(t_table *table, t_philo *philo,
+			const char *action);
+void	ft_safe_fork_log(t_table *table, t_philo *philo,
+			const char *action, int fork_id);
 
 void	*ft_philo_routine(void *arg);
 void	*ft_monitor_thread(void *arg);

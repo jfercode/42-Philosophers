@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:05:02 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/16 15:35:49 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:51:44 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	 ft_start_simulation(t_table *table)
 	int	i;
 
 	i = 0;
+	pthread_mutex_lock(&table->table_mutex);
 	while (i < table->philo_nbr)
 	{
 		if (pthread_create(&table->philos[i].thread,
@@ -26,22 +27,17 @@ void	 ft_start_simulation(t_table *table)
 			ft_error_exit("Error: Failed to create thread\n");
 		i++;
 	}
-	pthread_mutex_lock(&table->table_mutex);
-	pthread_mutex_unlock(&table->table_mutex);
-	gettimeofday(&table->start_simulator, NULL);
-	table->all_threads_ready = true;
 	if (pthread_create(&table->monitor_thread,
 			NULL, &ft_monitor_thread, table) != 0)
 		ft_error_exit("Error: Failed to create thread\n");
+	table->all_threads_ready = true;
 	i = 0;
 	while (++i < table->philo_nbr)
 	 	pthread_join(table->philos[i].thread, NULL);
 	pthread_join(table->monitor_thread, NULL);
+	pthread_mutex_unlock(&table->table_mutex);
 }
 
-/**
- * TO DO: Condicion de muerte -> current time llega a time to die 
- */
 /// @brief the routine that the philosophers follow to live 
 ///	take forks -> eat -> put down forks -> sleep -> think
 /// @param arg the philosopher link
@@ -65,14 +61,14 @@ void	*ft_philo_routine(void *arg)
 	if (philo->full)
 	{
 		gettimeofday(&current_time, NULL);
-		printf(RST"%ld %d"GREEN" is full, eats %ld times\n"RST,
+		printf(RST"%ld %d"GREEN" is full 😋, eats %ld times\n"RST,
 		ft_obtain_current_time(philo->table),
 			philo->id, philo->meals_eaten);
 	}
 	return (NULL);
 }
 
-/// @brief Monitor thread that checks  
+/// @brief Monitor thread that checks for died philosophers
 /// @param arg the table with information reference
 void	*ft_monitor_thread(void *arg)
 {
@@ -81,24 +77,35 @@ void	*ft_monitor_thread(void *arg)
 	int		i;
 
 	table = (t_table *)arg;
-	i = 0;
-	while (!table->end_simulator)
+	while (1)
 	{
-		while (++i < table->philo_nbr)
+		pthread_mutex_lock(&table->table_mutex);
+		if (table->end_simulator)
+		{
+			pthread_mutex_unlock(&table->table_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&table->table_mutex);
+		i = 0;
+		while (i < table->philo_nbr)
 		{
 			current_time_ms = ft_obtain_current_time(table);
-			if (current_time_ms > table->time_to_die)
+			pthread_mutex_lock(&table->philos[i].mutex);
+			if (current_time_ms - table->philos[i].last_meal_time > table->time_to_die)
 			{
 				pthread_mutex_lock(&table->table_mutex);
-				table->end_simulator = true;
+				if (!table->end_simulator)
+				{
+    				table->end_simulator = true;
+    				printf(RST"%ld %d"RED" died 😵\n"RST, current_time_ms, table->philos[i].id);
+				}
 				pthread_mutex_unlock(&table->table_mutex);
-				printf(RST"%ld %d"RED" died\n"RST,
-					ft_obtain_current_time(table), i);
-				pthread_mutex_unlock(&table->philos[i].mutex);
 				return (NULL);
 			}
-			usleep(1000);
+			pthread_mutex_unlock(&table->philos[i].mutex);
+			i++;
 		}
+		usleep(1000);
 	}
 	return (NULL);
 }
