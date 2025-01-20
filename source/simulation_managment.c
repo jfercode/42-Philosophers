@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:05:02 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/20 14:51:44 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:39:51 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	*ft_philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	ft_wait_all_threads(philo->table);
-	while (!philo->table->end_simulator)
+	while (!philo->table->end_simulator && !philo->full)
 	{
 		ft_take_forks(philo);
 		ft_philo_eats(philo);
@@ -68,41 +68,47 @@ void	*ft_philo_routine(void *arg)
 	return (NULL);
 }
 
+/// @brief Checks the state of a philosopher to see if they have died.
+/// @param table the table with information reference
+/// @param i the index of the philosopher being checked
+/// @return true if the philosopher has died, otherwise false
+static bool	ft_check_philosopher_state(t_table *table, int i)
+{
+	int j;
+
+	j = 0;
+	if (ft_obtain_current_time(table) - table->philos[i].last_meal_time > table->time_to_die
+		|| ft_obtain_current_time(table) > table->time_to_die)
+	{
+		printf(RST"%ld %d"RED" died 😵\n"RST,
+			ft_obtain_current_time(table), table->philos[i].id);
+		pthread_mutex_destroy(&table->philos[i].mutex);
+		while (j < table->philo_nbr)
+			pthread_detach(table->philos[j++].thread);
+		table->end_simulator = true;
+		return (true);
+    }
+    return (false);
+}
+
 /// @brief Monitor thread that checks for died philosophers
 /// @param arg the table with information reference
 void	*ft_monitor_thread(void *arg)
 {
 	t_table	*table;
-	long	current_time_ms;
 	int		i;
 
 	table = (t_table *)arg;
+	ft_wait_all_threads(table);
 	while (1)
 	{
-		pthread_mutex_lock(&table->table_mutex);
 		if (table->end_simulator)
-		{
-			pthread_mutex_unlock(&table->table_mutex);
 			break ;
-		}
-		pthread_mutex_unlock(&table->table_mutex);
 		i = 0;
 		while (i < table->philo_nbr)
 		{
-			current_time_ms = ft_obtain_current_time(table);
-			pthread_mutex_lock(&table->philos[i].mutex);
-			if (current_time_ms - table->philos[i].last_meal_time > table->time_to_die)
-			{
-				pthread_mutex_lock(&table->table_mutex);
-				if (!table->end_simulator)
-				{
-    				table->end_simulator = true;
-    				printf(RST"%ld %d"RED" died 😵\n"RST, current_time_ms, table->philos[i].id);
-				}
-				pthread_mutex_unlock(&table->table_mutex);
-				return (NULL);
-			}
-			pthread_mutex_unlock(&table->philos[i].mutex);
+			if (ft_check_philosopher_state(table, i))
+				break ;
 			i++;
 		}
 		usleep(1000);

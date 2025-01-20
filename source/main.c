@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:35:09 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/20 13:31:22 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:40:39 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	ft_data_initialization(char **argv, t_table *table)
 	philos = ft_create_philos(table);
 	table->philos = philos;
 	table->all_threads_ready = false;
+	table->end_simulator = false;
 	pthread_mutex_init(&table->table_mutex, NULL);
 	pthread_mutex_init(&table->print_mutex, NULL);
 	pthread_mutex_init(&table->start_mutex, NULL);
