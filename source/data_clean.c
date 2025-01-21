@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 15:03:01 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/20 12:34:43 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:13:19 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_clean_data(t_table *table)
 	if (table->philos)
 		free(table->philos);
 	pthread_mutex_destroy(&table->print_mutex);
-	pthread_mutex_destroy(&table->print_mutex);
+	pthread_mutex_destroy(&table->table_mutex);
 	if (table)
 		free(table);
 }

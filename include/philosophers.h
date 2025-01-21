@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:30:33 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/20 15:10:04 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/21 12:08:21 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	ft_error_parsing(t_table *table);
 void	ft_put_down_forks(t_philo *philo);
 void	ft_start_simulation(t_table *table);
 void	ft_error_exit(const char *error_msg);
+void	ft_case_one_philosopher(t_table	*table);
 void	ft_debug_table(t_table *table_to_debug);
 void	ft_parse_argument(char **argv, t_table *table);
 void	ft_safe_log(t_table *table, t_philo *philo,
@@ -94,6 +95,9 @@ long	ft_obtain_current_time(t_table *table);
 
 bool	ft_isspace(const char c);
 bool	ft_isdigit(const char c);
+bool	ft_check_all_philos_full(t_table *table);
+bool	ft_check_philosopher_state(t_table *table, int i);
+
 
 t_fork	*ft_create_forks(t_table *table);
 t_philo	*ft_create_philos(t_table *table);

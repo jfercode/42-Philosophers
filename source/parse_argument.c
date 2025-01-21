@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 13:52:16 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/20 13:00:48 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:01:05 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_parse_argument(char **argv, t_table *table)
 			ft_initialice_table_with_parse_argv(ft_atol(argv[i]), table, i);
 		i++;
 	}
-	if (table->philo_nbr < 2 || table->time_to_eat <= 0
+	if (table->philo_nbr < 1 || table->time_to_eat <= 0
 		|| table->time_to_eat <= 0 || table->time_to_sleep <= 0
 		|| table->philo_nbr >= 250)
 		ft_error_parsing(table);
