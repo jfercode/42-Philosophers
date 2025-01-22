@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:16:52 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/20 14:42:55 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:14:04 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /// @brief function to check that all threads are correctly created
 /// @param table the table with references
-void ft_wait_all_threads(t_table *table)
+void	ft_wait_all_threads(t_table *table)
 {
 	pthread_mutex_lock(&table->start_mutex);
 	while (!table->all_threads_ready)
@@ -28,15 +28,15 @@ void ft_wait_all_threads(t_table *table)
 /// @return a long variable with elapsed_time in ms
 long	ft_obtain_current_time(t_table *table)
 {
-	struct timeval 		current;
+	struct timeval		current;
 	long long			elapsed_time_ms;
 
 	gettimeofday(&current, NULL);
 	elapsed_time_ms = (current.tv_sec
-		- table->start_simulator.tv_sec) * 1000;
+			- table->start_simulator.tv_sec) * 1000;
 	elapsed_time_ms += (current.tv_usec
-		- table->start_simulator.tv_usec) / 1000;
-	 return (elapsed_time_ms);// TO DO Discomment this
+			- table->start_simulator.tv_usec) / 1000;
+	return (elapsed_time_ms);
 }
 
 /// @brief Function safe of deadlock mutex for printf normal logs

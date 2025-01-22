@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:01:30 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/22 13:09:55 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:15:14 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 /// @return true if the philosopher has died, otherwise false
 bool	ft_check_philosopher_state(t_table *table, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if ((ft_obtain_current_time(table) - table->philos[i].last_meal_time
-		> table->time_to_die 
-		|| ft_obtain_current_time(table) > table->time_to_die)
+			> table->time_to_die
+			|| ft_obtain_current_time(table) > table->time_to_die)
 		&& !table->philos[i].is_eating)
 	{
 		printf(RST"%ld %d"RED" died 😵\n"RST,
@@ -34,8 +34,8 @@ bool	ft_check_philosopher_state(t_table *table, int i)
 		pthread_mutex_unlock(&table->philos[i].first_fork->mutex);
 		pthread_mutex_unlock(&table->philos[i].second_fork->mutex);
 		return (true);
-    }
-    return (false);
+	}
+	return (false);
 }
 
 /// @brief Checks if all philos have allready eats and they are full
@@ -44,7 +44,7 @@ bool	ft_check_philosopher_state(t_table *table, int i)
 bool	ft_check_all_philos_full(t_table *table)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < table->philo_nbr)
 	{

@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:59:25 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/22 13:07:16 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:16:38 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static void	ft_assign_forks_to_philo(t_philo *philo, int id)
 
 	philo_count = philo->table->philo_nbr;
 	if (id == 0)
-	{	
+	{
 		philo->first_fork = &philo->table->forks[0];
 		philo->second_fork = &philo->table->forks[(philo_count - 1)];
 		return ;
-	}	
+	}
 	philo_count = philo->table->philo_nbr;
 	philo->first_fork = &philo->table->forks[id];
 	philo->second_fork = &philo->table->forks[(id + 1)

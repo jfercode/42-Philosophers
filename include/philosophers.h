@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:30:33 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/22 12:58:03 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:13:20 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ bool	ft_isspace(const char c);
 bool	ft_isdigit(const char c);
 bool	ft_check_all_philos_full(t_table *table);
 bool	ft_check_philosopher_state(t_table *table, int i);
-
 
 t_fork	*ft_create_forks(t_table *table);
 t_philo	*ft_create_philos(t_table *table);
