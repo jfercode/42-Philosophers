@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:30:33 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/21 12:08:21 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:58:03 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	ft_error_parsing(t_table *table);
 void	ft_put_down_forks(t_philo *philo);
 void	ft_start_simulation(t_table *table);
 void	ft_error_exit(const char *error_msg);
-void	ft_case_one_philosopher(t_table	*table);
 void	ft_debug_table(t_table *table_to_debug);
 void	ft_parse_argument(char **argv, t_table *table);
 void	ft_safe_log(t_table *table, t_philo *philo,

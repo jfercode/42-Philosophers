@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:01:30 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/21 13:16:45 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:59:05 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ bool	ft_check_philosopher_state(t_table *table, int i)
 		printf(RST"%ld %d"RED" died 😵\n"RST,
 			ft_obtain_current_time(table), table->philos[i].id);
 		pthread_mutex_lock(&table->table_mutex);
+		table->end_simulator = true;
 		pthread_mutex_unlock(&table->table_mutex);
+		pthread_mutex_unlock(&table->philos[i].first_fork->mutex);
+		pthread_mutex_unlock(&table->philos[i].second_fork->mutex);
 		return (true);
     }
     return (false);

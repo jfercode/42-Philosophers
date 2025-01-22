@@ -6,27 +6,12 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:05:02 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/21 13:18:46 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:00:33 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-void	ft_case_one_philosopher(t_table	*table)
-{
-	if (pthread_create(&table->philos[0].thread,
-			NULL, &ft_philo_routine, &table->philos[0]) != 0)
-		ft_error_exit("Error: Failed to create thread\n");
-	if (pthread_create(&table->monitor_thread,
-			NULL, &ft_monitor_thread, table) != 0)
-		ft_error_exit("Error: Failed to create thread\n");
-	pthread_mutex_lock(&table->table_mutex);
-	table->all_threads_ready = true;
-	pthread_mutex_unlock(&table->table_mutex);
-	pthread_join(table->philos[0].thread, NULL);
-	pthread_join(table->monitor_thread, NULL);
-}
- 
 /// @brief Create all threads for the philos
 /// @param table the table with information to access to data
 void	 ft_start_simulation(t_table *table)
@@ -34,7 +19,6 @@ void	 ft_start_simulation(t_table *table)
 	int	i;
 
 	i = 0;
-	pthread_mutex_lock(&table->table_mutex);
 	while (i < table->philo_nbr)
 	{
 		if (pthread_create(&table->philos[i].thread,
@@ -45,16 +29,12 @@ void	 ft_start_simulation(t_table *table)
 	if (pthread_create(&table->monitor_thread,
 			NULL, &ft_monitor_thread, table) != 0)
 		ft_error_exit("Error: Failed to create thread\n");
-	pthread_mutex_unlock(&table->table_mutex);
 	pthread_mutex_lock(&table->table_mutex);
 	table->all_threads_ready = true;
 	pthread_mutex_unlock(&table->table_mutex);
 	i = 0;
 	while (i < table->philo_nbr)
-	{
-		pthread_join(table->philos[i].thread, NULL);
-		i++;
-	}
+		pthread_join(table->philos[i++].thread, NULL);
 	pthread_join(table->monitor_thread, NULL);
 }
 
@@ -78,7 +58,7 @@ void	*ft_philo_routine(void *arg)
 		ft_philo_sleeps(philo);
 		ft_philo_thinks(philo);
 	}
-	if (philo->full)
+	if (philo->full && !philo->table->end_simulator)
 	{
 		gettimeofday(&current_time, NULL);
 		printf(RST"%ld %d"GREEN" is full 😋, eats %ld times\n"RST,
@@ -97,11 +77,8 @@ void	*ft_monitor_thread(void *arg)
 
 	table = (t_table *)arg;
 	ft_wait_all_threads(table);
-	while (1)
+	while (!table->end_simulator)
 	{
-		pthread_mutex_lock(&table->table_mutex);
-		if (table->end_simulator)
-			break ;
 		i = 0;
 		while (i < table->philo_nbr)
 		{

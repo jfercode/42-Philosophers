@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:35:09 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/21 12:08:34 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:58:16 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,7 @@ int	main(int argc, char **argv)
 			ft_error_exit("Error: failed to malloc for table\n");
 		memset(table, 0, sizeof(t_table));
 		ft_data_initialization(argv, table);
-		if (table->philo_nbr == 1)
-			ft_case_one_philosopher(table);
-		else
-			ft_start_simulation(table);
-			
+		ft_start_simulation(table);
 		ft_clean_data(table);
 	}
 	return (0);
