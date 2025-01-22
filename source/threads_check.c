@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:01:30 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/22 12:59:05 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:09:55 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ bool	ft_check_philosopher_state(t_table *table, int i)
 	int j;
 
 	j = 0;
-	if (ft_obtain_current_time(table) - table->philos[i].last_meal_time
+	if ((ft_obtain_current_time(table) - table->philos[i].last_meal_time
 		> table->time_to_die 
 		|| ft_obtain_current_time(table) > table->time_to_die)
+		&& !table->philos[i].is_eating)
 	{
 		printf(RST"%ld %d"RED" died 😵\n"RST,
 			ft_obtain_current_time(table), table->philos[i].id);

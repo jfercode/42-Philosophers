@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 11:34:54 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/20 13:04:58 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:09:17 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	ft_philo_eats(t_philo *philo)
 {
 	ft_safe_log(philo->table, philo, " is eating 🍴");
 	pthread_mutex_lock(&philo->mutex);
+	philo->is_eating = true;
 	philo->last_meal_time = ft_obtain_current_time(philo->table);
 	philo->meals_eaten++;
 	usleep(philo->table->time_to_eat * 1000);
-	pthread_mutex_unlock(&philo->mutex);
 	if (philo->meals_eaten 
 		== philo->table->number_of_times_each_philo_must_eat)
 		philo->full = true;
@@ -73,6 +73,8 @@ void	ft_philo_eats(t_philo *philo)
 /// @param philo the philosopher
 void	ft_philo_sleeps(t_philo *philo)
 {
+	philo->is_eating = false;
+	pthread_mutex_unlock(&philo->mutex);
 	ft_safe_log(philo->table, philo, " is sleeping 😴");
 	usleep(philo->table->time_to_sleep * 1000);
 }
