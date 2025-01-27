@@ -1,5 +1,5 @@
 # Static library name
-NAME = build/philosophers.a
+NAME = build/philo.a
 
 # Compiler and rules
 CC = cc
@@ -33,7 +33,7 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)CREATING STATIC LIBRARY $@$(RESET)"
 	ar rcs $@ $^
 	@echo "\$(CYAN)COMPILING AND GENERATE THE EXECUTABLE...$(RESET)"
-	$(CC) $(CFLAGS) -o philosophers $(OBJ_DIR)/main.o $(NAME)
+	$(CC) $(CFLAGS) -o philo $(OBJ_DIR)/main.o $(NAME)
 
 # Rule to compile .c files into .o
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -45,7 +45,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 clean:
 		@echo "$(RED)CLEANING OBJECT FILES AND EXECUTABLES...$(RESET)" 
 		rm -rf $(OBJ_DIR)
-		rm -f ./philosophers
+		rm -f ./philo
 		@echo "$(GREEN)CLEANING DONE.$(RESET)"
 
 # Rule for full clean
