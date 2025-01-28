@@ -6,7 +6,7 @@
 /*   By: jaferna2 <jaferna2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:47:23 by jaferna2          #+#    #+#             */
-/*   Updated: 2025/01/14 10:23:03 by jaferna2         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:01:52 by jaferna2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  */
 void	ft_error_exit(const char *error_msg)
 {
-	printf(RED"%s\n", error_msg);
+	printf(RED"%s"RST, error_msg);
 	exit(EXIT_FAILURE);
 }
 
